@@ -1,0 +1,21 @@
+:root {
+  --general-button-background-color: rgb(238, 227, 193);
+  --general-button-hover-background-color: rgb(227, 209, 153);
+}
+
+textarea {
+  padding: var(--content-padding);
+  outline: none;
+}
+
+button, .general-button {
+  width: fit-content;
+  min-width: fit-content;
+  padding: var(--content-padding) calc(var(--content-padding) * 1.5);
+  background-color: var(--general-button-background-color);
+  border: 1px solid var(--general-border-color);
+  border-radius: calc(var(--content-padding));
+}
+button:hover, .general-button:hover {
+  background-color: var(--general-button-hover-background-color);
+}

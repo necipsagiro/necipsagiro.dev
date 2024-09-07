@@ -1,12 +1,12 @@
 import express from 'express';
 
-import wgGetController from '../controllers/index/get.js';
+import senlikciGetController from '../controllers/boun-senlikci/get.js';
 
 const router = express.Router();
 
 router.get(
   '/',
-    wgGetController
+    senlikciGetController
 );
 
 export default router;
