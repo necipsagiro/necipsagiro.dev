@@ -5,6 +5,7 @@ import favicon from 'serve-favicon';
 import http from 'http';
 import os from 'os';
 import path from 'path';
+import useragent from 'express-useragent';
 
 import indexRouteController from './routes/indexRoute.js';
 import senlikciRouteController from './routes/senlikciRoute.js';
@@ -36,6 +37,7 @@ if (cluster.isPrimary) {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static(path.join(import.meta.dirname, 'public')));
+  app.use(useragent.express());
   app.use(favicon(path.join(import.meta.dirname, 'public/img/favicon/favicon.ico')));
   app.use((req, res, next) => {
     if (!req.query || typeof req.query != 'object')

@@ -2,14 +2,11 @@ extends ../partials/head
 block content
   h1 boun şenlikçi
   .general-separator
-  -
-    const coursesPlaceholder = [
-      'HUM 101.03',
-      'PE 152.02',
-      'PHIL 112.01'
-    ];
+  if (is_mobile)
+    p yalnızca masaüstü web tarayıcılarında kullanılabilir.
+    .general-separator
   p quick add yapmak istediğiniz derslerin kodlarını ve section'larını örnekteki gibi aşağıdaki alana yazın. her yeni ders için alt satıra geçin.
-  textarea#courses-input(placeholder=coursesPlaceholder.join('\n') style=`min-height: ${coursesPlaceholder.length * 40}px;`)= coursesPlaceholder.join('\n')
+  textarea#courses-input(placeholder=courses_placeholder.join('\n') style=`min-height: ${courses_placeholder.length * 40}px;`)= courses_placeholder.join('\n')
   p ders kodlarını ve sectionları doğru yazdığınızdan emin olun. hata varsa çalışmayacaktır.
   .general-separator
   p aşağıdaki butonu fare ile tarayıcıdaki yer işaretleri çubuğuna sürükleyin ve kaydedin.
