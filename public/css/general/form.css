@@ -6,6 +6,7 @@
 textarea {
   padding: var(--content-padding);
   outline: none;
+  border: 1px solid var(--general-border-color);
 }
 
 button, .general-button {
@@ -14,7 +15,6 @@ button, .general-button {
   padding: var(--content-padding) calc(var(--content-padding) * 1.5);
   background-color: var(--general-button-background-color);
   border: 1px solid var(--general-border-color);
-  border-radius: calc(var(--content-padding));
 }
 button:hover, .general-button:hover {
   background-color: var(--general-button-hover-background-color);
