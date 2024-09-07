@@ -25,7 +25,8 @@ body {
   margin: 0px;
   padding: var(--page-vertical-padding) var(--page-horizontal-padding);
   background-color: var(--background-color);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 input[type=search]::-ms-clear { display: none; width : 0; height: 0; }
