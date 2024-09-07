@@ -5,8 +5,10 @@ import favicon from 'serve-favicon';
 import http from 'http';
 import os from 'os';
 import path from 'path';
+import subdomain from 'express-subdomain';
 
 import indexRouteController from './routes/indexRoute.js';
+import wgRouteController from './routes/wgRoute.js';
 
 dotenv.config({ path: path.join(import.meta.dirname, '.env') });
 
@@ -46,6 +48,7 @@ if (cluster.isPrimary) {
   });
 
   app.use('/', indexRouteController);
+  app.use(subdomain('wg', wgRouteController));
 
   server.listen(PORT, () => {
     console.log(`Server is on port ${PORT} as Worker ${cluster.worker.id} running @ process ${cluster.worker.process.pid}`);
