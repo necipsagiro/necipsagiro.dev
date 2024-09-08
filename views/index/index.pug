@@ -1,10 +1,7 @@
 extends ../partials/head
 block content
-  h1 necipsagiro.dev
-  .general-separator
   .links-wrapper
-    a(href='https://github.com/necipsagiro' target='_blank') github
-    .general-vertical-separator
-    a(href='https://twitter.com/necipsagiro' target='_blank') twitter
-    .general-vertical-separator
-    a(href='https://linkedin.com/in/necipsagiro/' target='_blank') linkedin
+    each link, index in links
+      a(href=link.url target='_blank')= link.name
+      if index < links.length - 1
+        .general-vertical-separator

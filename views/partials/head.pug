@@ -59,4 +59,6 @@ html(lang='en')
         meta(name='twitter:image' content=url + meta.image)
         meta(name='twitter:image:alt' content=meta.title)
   body
-  block content
+    h1 < #{title} >
+    .general-separator
+    block content

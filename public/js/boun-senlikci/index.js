@@ -29,7 +29,7 @@ window.addEventListener('load', () => {
           changedInput.classList.remove('each-course-input-invalid');
         };
 
-        if (!changedInput.nextElementSibling.classList.contains('each-course-input')) {
+        if (!changedInput.nextElementSibling.classList.contains('each-course-input') && document.querySelectorAll('.each-course-input').length < 10) {
           const newInput = document.createElement('input');
 
           newInput.classList.add('each-course-input');
