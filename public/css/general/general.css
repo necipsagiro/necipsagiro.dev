@@ -69,7 +69,8 @@ input[type=number] {
   --content-gap: 24px;
   --content-padding: 8px;
 
-  --general-border-color: rgb(118, 118, 118);
+  --border-color: rgb(118, 118, 118);
+  --warning-color: rgb(241, 90, 14);
 
   --background-color: rgb(249, 245, 233);
 }

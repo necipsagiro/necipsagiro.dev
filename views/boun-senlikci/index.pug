@@ -5,12 +5,12 @@ block content
   if (is_mobile)
     p yalnızca masaüstü web tarayıcılarında kullanılabilir.
     .general-separator
-  p quick add yapmak istediğiniz derslerin kodlarını ve section'larını örnekteki gibi aşağıdaki alana yazın. her yeni ders için alt satıra geçin.
-  textarea#courses-input(placeholder=courses_placeholder.join('\n') style=`min-height: ${courses_placeholder.length * 40}px;`)= courses_placeholder.join('\n')
+  p quick add yapmak istediğiniz derslerin kodlarını ve section'larını örnekteki gibi aşağıdaki kutulara girin.
+  input.each-course-input(placeholder=course_placeholder)
   p ders kodlarını ve sectionları doğru yazdığınızdan emin olun. hata varsa çalışmayacaktır.
   .general-separator
-  p aşağıdaki butonu fare ile tarayıcıdaki yer işaretleri çubuğuna sürükleyin ve kaydedin.
+  p aşağıdaki butonu tarayıcıdaki yer işaretleri çubuğuna sürükleyin ve kaydedin.
   p yer işaretleri çubuğu görünmüyorsa tarayıcı ayarlarından görünür hale getirin.
   a.general-button#drag-button(href) Sürükle
   .general-separator
-  p ders seçim zamanı, kayıt ekranı yüklendiğinde yer işaretleri çubuğundaki butona tıklarsanız gerekli yerler doldurulacak. sonrasında quick add'e basabilirsiniz.
+  p ders kayıt ekranı yüklendiğinde yer işaretleri çubuğundaki butona tıklarsanız istediğiniz dersler quick add yapılacaktır.

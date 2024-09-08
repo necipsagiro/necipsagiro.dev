@@ -1,8 +1,4 @@
-const COURSES_PLACEHOLDER = [
-  'HUM 101.03',
-  'PE 152.02',
-  'PHIL 112.01'
-];
+const COURSE_PLACEHOLDER = 'CMPE 321.01';
 
 export default (req, res) => {
   return res.render('boun-senlikci/index', {
@@ -12,7 +8,7 @@ export default (req, res) => {
       css: ['page', 'general', 'form'],
       js: ['page', 'form']
     },
-    courses_placeholder: COURSES_PLACEHOLDER,
+    course_placeholder: COURSE_PLACEHOLDER,
     is_mobile: req.useragent.isMobile
   });
 };

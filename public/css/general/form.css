@@ -3,10 +3,14 @@
   --general-button-hover-background-color: rgb(227, 209, 153);
 }
 
-textarea {
+input, textarea {
   padding: var(--content-padding);
   outline: none;
-  border: 1px solid var(--general-border-color);
+  border: 1px solid var(--border-color);
+}
+
+input {
+  width: fit-content;
 }
 
 button, .general-button {
@@ -14,7 +18,7 @@ button, .general-button {
   min-width: fit-content;
   padding: var(--content-padding) calc(var(--content-padding) * 1.5);
   background-color: var(--general-button-background-color);
-  border: 1px solid var(--general-border-color);
+  border: 1px solid var(--border-color);
 }
 button:hover, .general-button:hover {
   background-color: var(--general-button-hover-background-color);
