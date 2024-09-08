@@ -45,11 +45,12 @@ window.addEventListener('load', () => {
 
       const coursesArray = Array.from(document.querySelectorAll('.each-course-input'))
         .map(input => input.value.toUpperCase())
-        .filter(ders => ders.trim() != "");
+        .filter(ders => ders.trim() != "" && COURSE_INPUT_REGEX.test(ders));
 
       console.log(coursesArray);
 
       dragButton.setAttribute('href', `javascript: (() => { ${fillCourses.toString()}; ${fillCourses.name}(${JSON.stringify(coursesArray)}); })();`);
+      dragButton.setAttribute('title', coursesArray.join('\n') || dragButton.getAttribute('data-default-title'));
     };
   });
 
