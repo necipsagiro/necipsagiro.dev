@@ -4,16 +4,16 @@ const LINKS = [
     url: 'https://github.com/necipsagiro'
   },
   {
-    name: 'twitter',
-    url: 'https://x.com/necipsagiro'
+    name: 'e-mail',
+    url: 'mailto:necipsagiroglu@gmail.com'
   },
   {
     name: 'linkedin',
     url: 'https://linkedin.com/in/necipsagiro'
   },
   {
-    name: 'e-mail',
-    url: 'mailto:necipsagiroglu@gmail.com'
+    name: 'x',
+    url: 'https://x.com/necipsagiro'
   }
 ];
 
