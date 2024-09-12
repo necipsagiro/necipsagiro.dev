@@ -1,12 +1,16 @@
-import express from 'express';
-
 import senlikciGetController from '../controllers/boun-senlikci/get.js';
+import senlikciPostController from '../controllers/boun-senlikci/post.js';
 
-const router = express.Router();
+async function router(app, options) {
+  app.get(
+    '/',
+      senlikciGetController
+  );
 
-router.get(
-  '/',
-    senlikciGetController
-);
+  app.post(
+    '/',
+      senlikciPostController
+  );
+};
 
 export default router;

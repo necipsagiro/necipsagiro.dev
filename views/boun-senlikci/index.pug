@@ -1,10 +1,10 @@
 extends ../partials/head
 block content
-  if (is_mobile)
-    p yalnızca masaüstü web tarayıcılarında kullanılabilir.
-    .general-separator
   p quick add yapmak istediğiniz derslerin kodlarını ve section'larını örnekteki gibi aşağıdaki kutulara girin.
-  input.each-course-input(placeholder=course_placeholder)
+  form#course-input-wrapper(method='post' action='/quick-add')
+    each course in courses
+      +course-input(course)
+    +course-input('')
   p ders kodlarını ve sectionları doğru yazdığınızdan emin olun. hata varsa çalışmayacaktır.
   .general-separator
   p aşağıdaki butonu tarayıcıdaki yer işaretleri çubuğuna sürükleyin ve kaydedin.

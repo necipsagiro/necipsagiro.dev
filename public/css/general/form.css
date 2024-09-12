@@ -1,3 +1,8 @@
+form {
+  flex-direction: column;
+  gap: var(--content-gap);
+}
+
 input, textarea {
   padding: var(--content-padding);
   outline: none;

@@ -1,24 +1,18 @@
+include ../mixins
 doctype html
 html(lang='en')
   head
-    //- // Google tag (gtag.js)
-    //- script(async='' src='https://www.googletagmanager.com/gtag/js?id=G-X8ZHYFMTRY')
-    //- script.
-    //-   window.dataLayer = window.dataLayer || [];
-    //-   function gtag(){dataLayer.push(arguments);}
-    //-   gtag('js', new Date());
-    //-   gtag('config', 'G-X8ZHYFMTRY');
     meta(name='viewport' content='width=device-width, initial-scale=1.0, shrink-to-fit=no')
     meta(content='text/html; charset=UTF-8' http-equiv='content-type')
     if title
       title #{title}
     else
       title necipsagiro.dev
-    link(rel='icon' type='image/png' href='/img/favicon/favicon-16x16.png' sizes='16x16')
-    link(rel='icon' type='image/png' href='/img/favicon/favicon-32x32.png' sizes='32x32')
-    link(rel='icon' type='image/png' href='/img/favicon/android-chrome-192x192.png' sizes='192x192')
-    link(rel='icon' type='image/png' href='/img/favicon/android-chrome-512x512.png' sizes='512x512')
-    link(rel='apple-touch-icon' href='/img/favicon/apple-touch-icon.png' sizes='180x180')
+    link(rel='icon' type='image/png' href='/static/img/favicon/favicon-16x16.png' sizes='16x16')
+    link(rel='icon' type='image/png' href='/static/img/favicon/favicon-32x32.png' sizes='32x32')
+    link(rel='icon' type='image/png' href='/static/img/favicon/android-chrome-192x192.png' sizes='192x192')
+    link(rel='icon' type='image/png' href='/static/img/favicon/android-chrome-512x512.png' sizes='512x512')
+    link(rel='apple-touch-icon' href='/static/img/favicon/apple-touch-icon.png' sizes='180x180')
     link(rel='preconnect' href='https://fonts.googleapis.com')
     link(rel='preconnect' href='https://fonts.gstatic.com' crossorigin)
     link(rel='stylesheet' href='https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400..800;1,400..800&display=swap')
@@ -26,15 +20,15 @@ html(lang='en')
       if includes.css
         each file_name in includes.css
           if file_name == 'page'
-            link(rel='stylesheet' href=`/css/${page}.css`)
+            link(rel='stylesheet' href=`/static/css/${page}.css`)
           else
-            link(rel='stylesheet' href=`/css/general/${file_name}.css`)
+            link(rel='stylesheet' href=`/static/css/general/${file_name}.css`)
       if includes.js
         each file_name in includes.js
           if file_name == 'page'
-            script(src=`/js/${page}.js`)
+            script(src=`/static/js/${page}.js`)
           else
-            script(src=`/js/functions/${file_name}.js`)
+            script(src=`/static/js/functions/${file_name}.js`)
     if meta
       meta(property='og:type' content='website')
       if meta.author
@@ -50,17 +44,9 @@ html(lang='en')
         meta(name='keywords' content=meta.keywords)
       if meta.title
         meta(property='og:title' content=meta.title)
-      if meta.twitter
-        meta(name='twitter:card' content='summary_large_image')
-        meta(name='twitter:site' content='@node_101')
-        meta(name='twitter:creator' content='@node_101')
-        meta(name='twitter:title' content=meta.title)
-        meta(name='twitter:description' content=meta.description)
-        meta(name='twitter:image' content=url + meta.image)
-        meta(name='twitter:image:alt' content=meta.title)
   body
     if page != 'index/index'
-      a(href='/') < back to home
+      a(href='/') <<
     h1 #{title}
     .general-separator
     block content

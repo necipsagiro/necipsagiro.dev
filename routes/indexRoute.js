@@ -1,12 +1,10 @@
-import express from 'express';
+import indexGetController from '../controllers/index/get.js'
 
-import indexGetController from '../controllers/index/get.js';
-
-const router = express.Router();
-
-router.get(
-  '/',
-    indexGetController
-);
+async function router(app, options) {
+  app.get(
+    '/',
+      indexGetController
+  );
+};
 
 export default router;

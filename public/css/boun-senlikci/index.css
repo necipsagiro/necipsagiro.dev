@@ -1,3 +1,3 @@
-.each-course-input-invalid {
+.each-course-input:invalid {
   border: 1px solid var(--warning-color);
 }

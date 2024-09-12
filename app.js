@@ -1,11 +1,18 @@
 import cluster from 'cluster';
 import dotenv from 'dotenv';
-import express from 'express';
-import favicon from 'serve-favicon';
-import http from 'http';
-import os from 'os';
+import fastify from 'fastify';
 import path from 'path';
-import useragent from 'express-useragent';
+import pug from 'pug';
+import os from 'os';
+import MongoDBStore from 'connect-mongodb-session';
+import mongoose from 'mongoose';
+
+import fastifyCookie from '@fastify/cookie';
+import fastifyFormBody from '@fastify/formbody';
+// import fastifyMongoDB from '@fastify/mongodb';
+import fastifySession from '@fastify/session';
+import fastifyStatic from '@fastify/static';
+import fastifyView from '@fastify/view';
 
 import indexRouteController from './routes/indexRoute.js';
 import senlikciRouteController from './routes/senlikciRoute.js';
@@ -25,35 +32,54 @@ if (cluster.isPrimary) {
     cluster.fork();
   });
 } else {
-  const app = express();
-  const server = http.createServer(app);
+  const app = fastify();
 
+  const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/necipsagiro-dev';
   const PORT = process.env.PORT || 3000;
   const URL = process.env.URL || `http://localhost:${PORT}`;
 
-  app.set('views', path.join(import.meta.dirname, 'views'));
-  app.set('view engine', 'pug');
+  mongoose.connect(MONGODB_URI);
 
-  app.use(express.json());
-  app.use(express.urlencoded({ extended: true }));
-  app.use(express.static(path.join(import.meta.dirname, 'public')));
-  app.use(useragent.express());
-  app.use(favicon(path.join(import.meta.dirname, 'public/img/favicon/favicon.ico')));
-  app.use((req, res, next) => {
-    if (!req.query || typeof req.query != 'object')
-      req.query = {};
-    if (!req.body || typeof req.body != 'object')
-      req.body = {};
-
-    res.locals.url = URL;
-
-    return next();
+  app.register(fastifyFormBody);
+  app.register(fastifyCookie);
+  app.register(fastifySession, {
+    secret: process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+    },
+    store: new MongoDBStore(fastifySession)({
+      uri: MONGODB_URI,
+      collection: 'sessions'
+    })
+  });
+  app.register(fastifyStatic, {
+    root: path.join(import.meta.dirname, 'public'),
+    prefix: '/static'
+  });
+  app.register(fastifyStatic, {
+    root: path.join(import.meta.dirname, 'public/img/favicon'),
+    prefix: '/',
+    decorateReply: false
+  });
+  app.register(fastifyView, {
+    engine: {
+      pug: pug
+    },
+    root: path.join(import.meta.dirname, 'views'),
+    viewExt: 'pug',
+    propertyName: 'render'
   });
 
-  app.use('/', indexRouteController);
-  app.use('/boun-senlikci', senlikciRouteController);
+  app.register(indexRouteController, { prefix: '/' });
+  app.register(senlikciRouteController, { prefix: '/boun-senlikci' });
 
-  server.listen(PORT, () => {
+  app.listen({ port: PORT }, (err, address) => {
+    if (err) {
+      app.log.error(err);
+      process.exit(1);
+    };
+
     console.log(`Server is on port ${PORT} as Worker ${cluster.worker.id} running @ process ${cluster.worker.process.pid}`);
   });
 };
