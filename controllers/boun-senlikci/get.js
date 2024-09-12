@@ -3,14 +3,23 @@ const COURSE_INPUT_REGEX = '^([a-zA-Z]+)\\s([0-9]+)\\.([0-9]+)$';
 const DRAG_BUTTON_DEFAULT_TITLE = 'seçmek istediğiniz dersleri ekleyin';
 
 export default (req, res) => {
-  const courses = Array.isArray(req.session.courses) ? req.session.courses : [];
+  let courses = [];
+
+  try {
+    const parsed = JSON.parse(req.cookies.courses);
+
+    if (Array.isArray(parsed))
+      courses = parsed;
+  } catch (err) {
+    console.error(err);
+  };
 
   return res.render('boun-senlikci/index', {
     page: 'boun-senlikci/index',
     title: 'boun şenlikçi',
     includes: {
       css: ['page', 'general', 'form'],
-      js: ['page', 'form', 'serverRequest', 'course-input']
+      js: ['page', 'form', 'serverRequest', 'course-input', 'cookie-api']
     },
     courses: courses,
     course_input_placeholder: COURSE_INPUT_PLACEHOLDER,

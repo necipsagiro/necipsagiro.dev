@@ -41,7 +41,13 @@ if (cluster.isPrimary) {
   mongoose.connect(MONGODB_URI);
 
   app.register(fastifyFormBody);
-  app.register(fastifyCookie);
+  app.register(fastifyCookie, {
+    secret: process.env.COOKIE_SECRET,
+    parseOptions: {
+      httpOnly: true,
+      maxAge: 3 * 24 * 60 * 60
+    }
+  });
   app.register(fastifySession, {
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,

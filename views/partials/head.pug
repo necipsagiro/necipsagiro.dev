@@ -27,6 +27,8 @@ html(lang='en')
         each file_name in includes.js
           if file_name == 'page'
             script(src=`/static/js/${page}.js`)
+          else if file_name == 'cookie-api'
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.5/js.cookie.min.js' integrity='sha256-WCzAhd2P6gRJF9Hv3oOOd+hFJi/QJbv+Azn4CGB8gfY=' crossorigin="anonymous")
           else
             script(src=`/static/js/functions/${file_name}.js`)
     if meta

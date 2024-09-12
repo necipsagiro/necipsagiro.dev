@@ -27,15 +27,6 @@ function setDragButtonSrc(coursesArray) {
   dragButton.setAttribute('title', coursesArray.join('\n') || dragButton.getAttribute('data-default-title'));
 };
 
-function setCoursesInSession(coursesArray) {
-  serverRequest('/boun-senlikci', 'POST', {
-    courses: coursesArray
-  }, (err, res) => {
-    if (err || !res.ok)
-      return console.error(err);
-  });
-};
-
 window.addEventListener('load', () => {
   setDragButtonSrc(getCoursesArrayFromInputs());
 
@@ -54,7 +45,17 @@ window.addEventListener('load', () => {
         }));
       };
 
-      setDragButtonSrc(getCoursesArrayFromInputs());
+      currentCoursesArray = getCoursesArrayFromInputs();
+
+      Cookies.set('courses', JSON.stringify(currentCoursesArray), {
+        domain: window.location.hostname,
+        expires: 7,
+        path: window.location.pathname,
+        sameSite: 'strict',
+        secure: true
+      });
+
+      setDragButtonSrc(currentCoursesArray);
     };
   });
 
@@ -65,17 +66,6 @@ window.addEventListener('load', () => {
       for (let i = 0; i < courseInputs.length - 1; i++)
         if (!courseInputs[i].value)
           courseInputs[i].remove();
-
-      setCoursesInSession(getCoursesArrayFromInputs());
-    };
-  });
-
-  document.addEventListener('keyup', event => {
-    if (event.key == 'Enter' && document.activeElement.closest('.each-course-input') && document.activeElement != document.activeElement.parentElement.lastElementChild) {
-      const focusedInput = document.activeElement.closest('.each-course-input');
-
-      focusedInput.value = focusedInput.value.trim();
-      focusedInput.nextElementSibling.focus();
     };
   });
 });
