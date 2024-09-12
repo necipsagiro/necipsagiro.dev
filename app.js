@@ -5,13 +5,13 @@ import path from 'path';
 import pug from 'pug';
 import os from 'os';
 import MongoDBStore from 'connect-mongodb-session';
-import mongoose from 'mongoose';
 
 import fastifyCookie from '@fastify/cookie';
 import fastifyFormBody from '@fastify/formbody';
 // import fastifyMongoDB from '@fastify/mongodb';
 import fastifySession from '@fastify/session';
 import fastifyStatic from '@fastify/static';
+import fastifyOneLineLogger from '@fastify/one-line-logger';
 import fastifyView from '@fastify/view';
 
 import indexRouteController from './routes/indexRoute.js';
@@ -22,9 +22,9 @@ dotenv.config({ path: path.join(import.meta.dirname, '.env') });
 if (cluster.isPrimary) {
   console.log(`Master ${process.pid} is running`);
 
-  const numCPUs = process.env.WEB_CONCURRENCY || os.cpus().length;
+  const cpuCount = process.env.WEB_CONCURRENCY || os.cpus().length;
 
-  for (let i = 0; i < numCPUs; i++)
+  for (let i = 0; i < cpuCount; i++)
     cluster.fork();
 
   cluster.on('exit', (worker, code, signal) => {
@@ -32,27 +32,34 @@ if (cluster.isPrimary) {
     cluster.fork();
   });
 } else {
-  const app = fastify();
+  const app = fastify({
+    logger: process.env.NODE_ENV === 'development' ? {
+      transport: {
+        target: "@fastify/one-line-logger",
+      }
+    } : false,
+    ignoreTrailingSlash: true,
+    ignoreDuplicateSlashes: true
+  });
 
   const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/necipsagiro-dev';
   const PORT = process.env.PORT || 3000;
-  const URL = process.env.URL || `http://localhost:${PORT}`;
 
-  mongoose.connect(MONGODB_URI);
-
-  app.register(fastifyFormBody);
   app.register(fastifyCookie, {
-    secret: process.env.COOKIE_SECRET,
+    secret: process.env.COOKIE_SECRET || console.log('Cookie secret is not defined'),
     parseOptions: {
       httpOnly: true,
       maxAge: 3 * 24 * 60 * 60
     }
   });
+  app.register(fastifyFormBody, {
+    bodyLimit: 10e6
+  });
   app.register(fastifySession, {
     secret: process.env.SESSION_SECRET,
     saveUninitialized: false,
     cookie: {
-      secure: process.env.NODE_ENV === 'production',
+      secure: true,
     },
     store: new MongoDBStore(fastifySession)({
       uri: MONGODB_URI,
@@ -77,9 +84,12 @@ if (cluster.isPrimary) {
     propertyName: 'render'
   });
 
-  app.register(indexRouteController, { prefix: '/' });
-  app.register(senlikciRouteController, { prefix: '/boun-senlikci' });
-
+  app.register(indexRouteController, {
+    prefix: '/'
+  });
+  app.register(senlikciRouteController, {
+    prefix: '/boun-senlikci'
+  });
   app.listen({ port: PORT }, (err, address) => {
     if (err) {
       app.log.error(err);
