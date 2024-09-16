@@ -11,7 +11,6 @@ import fastifyFormBody from '@fastify/formbody';
 // import fastifyMongoDB from '@fastify/mongodb';
 import fastifySession from '@fastify/session';
 import fastifyStatic from '@fastify/static';
-import fastifyOneLineLogger from '@fastify/one-line-logger';
 import fastifyView from '@fastify/view';
 
 import indexRouteController from './routes/indexRoute.js';

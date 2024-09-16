@@ -1,5 +1,5 @@
 function fillCourses(courses) {
-  const iframe = document.getElementById('fCPL');
+  const iframe = document.getElementById('fCPL').contentDocument;
 
   courses.forEach((course, i) => {
     const courseName = course.split(' ')[0];
