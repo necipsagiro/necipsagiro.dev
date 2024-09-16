@@ -11,7 +11,7 @@ export default (req, res) => {
     if (Array.isArray(parsed))
       courses = parsed;
   } catch (err) {
-    console.error(err);
+    console.error('No courses found in cookies');
   };
 
   return res.render('boun-senlikci/index', {
