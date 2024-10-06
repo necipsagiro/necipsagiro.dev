@@ -1,7 +1,0 @@
-extends ../partials/head
-block content
-  .links-wrapper
-    each link, index in links
-      a(href=link.url target='_blank')= link.name
-      if index < links.length - 1
-        .general-vertical-separator

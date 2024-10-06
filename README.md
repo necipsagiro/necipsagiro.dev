@@ -1,1 +1,3 @@
-# necipsagiro.dev
+```
+deno task start
+```
