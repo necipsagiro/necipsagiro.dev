@@ -51,7 +51,7 @@ export function CourseSelector(props: CourseSelectorProps) {
       ))}
       <a
         href={dragButtonHref}
-        class='p-2 px-3 border border-[#BA9780] outline-none w-fit bg-[#BA9780] text-sm text-[#FFFFFF]'
+        class='p-2 px-3 border border-[#BA9780] outline-none w-fit bg-[#BA9780] text-sm'
       >
         sürükle
       </a>
